@@ -4,7 +4,7 @@ class Find
  def retrieve_registration_date(contents)
    contents.each do |row|
      reg_date = row[:RegDate]
-     puts retrieve_registration_date
+     puts reg_date
    end
  end
 
