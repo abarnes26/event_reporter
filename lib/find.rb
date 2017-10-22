@@ -1,12 +1,9 @@
 
 class Find
 
-#RegDate,first_Name,last_Name,Email_Address,HomePhone,Street,City,State,Zipcode
-
-
  def retrieve_registration_date(contents)
-   conents.each do |row|
-     reg_date = row{:RegDate}
+   contents.each do |row|
+     reg_date = row[:RegDate]
      puts retrieve_registration_date
    end
  end
@@ -25,17 +22,23 @@ class Find
     end
   end
 
-  def retireve_email_address(contents
+  def retireve_email_address(contents)
     contents.each do |row|
-    email_address = row[:Email_Address]
-    puts email_address
+     email_address = row[:Email_Address]
+     puts email_address
+    end
   end
-end
 
+ def retrieve_homephone
+    contents.each do |row|
+      home_phone = row[:HomePhone]
+      puts home_phone
+    end
+  end
 
-HomePhone,Street,City,State,Zipcode
+# HomePhone,Street,City,State,Zipcode
 
-zipcode = clean_zipcodes(row[:zipcode])
+# zipcode = clean_zipcodes(row[:zipcode])
 
 
   def clean_zipcodes(zipcode)
