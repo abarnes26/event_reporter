@@ -14,15 +14,33 @@ class EventReporterTest < Minitest::Test
   end
 
   def test_it_can_load_files_by_default
-    report = EventReporter.new.load
+    report = EventReporter.new.load_command
 
     assert_instance_of CSV, report
   end
 
   def test_it_can_load_different_files
-    report = EventReporter.new.load("sample.csv")
+    report = EventReporter.new.load_command("sample.csv")
 
     assert_instance_of CSV, report
   end
+
+  def test_the_find_command_works
+    report = EventReporter.new
+    report.load_command
+
+    assert_equal "Allison", report.find_command("first_name")[0]
+  end
+
+  def test_the_queue_command_works
+    report = EventReporter.new
+    report.load_command
+    report.find_command("first_name", "John")
+
+    assert_equal 63, report.queue_command("count")
+
+  end
+
+
 
  end

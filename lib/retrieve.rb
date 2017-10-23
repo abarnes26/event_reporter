@@ -10,7 +10,7 @@ class Retrieve
 
  def retrieve_data(contents, column_name, criteria = nil)
    column_name = clean_header(column_name)
-   results = parse_rows(contents, column_name, criteria)
+   parse_rows(contents, column_name, criteria)
    @queue
  end
 

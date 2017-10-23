@@ -17,7 +17,7 @@ class Retrieve_test < Minitest::Test
     find = Retrieve.new
     contents = CSV.open "full_event_attendees.csv", headers: true
 
-    assert_equal "11/12/08 10:47",find.retrieve_data(contents, "reGdAtE")[0]
+    assert_equal "11/12/08 10:47",find.retrieve_data(contents, "regdate")[0]
   end
 
   def test_it_can_find_first_names
