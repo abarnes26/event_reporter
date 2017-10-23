@@ -28,16 +28,6 @@ class EventReporterTest < Minitest::Test
   def test_the_find_command_works
     report = EventReporter.new
     report.load_command
-    results = {" "=>"1",
-              "RegDate"=>"11/12/08 10:47",
-               "first_Name"=>"Allison",
-               "last_Name"=>"Nguyen",
-               "Email_Address"=>"arannon@jumpstartlab.com",
-               "HomePhone"=>"6154385000",
-               "Street"=>"3155 19th St NW",
-               "City"=>"Washington",
-               "State"=>"DC",
-               "Zipcode"=>"20010"}
 
     assert_equal "Allison", report.find_command("first_name", "Allison")[0]["first_Name"]
   end
@@ -54,5 +44,4 @@ class EventReporterTest < Minitest::Test
     assert_equal 0, report.queue_command("count")
 
   end
-
- end
+end
