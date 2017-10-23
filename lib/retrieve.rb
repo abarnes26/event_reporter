@@ -8,18 +8,16 @@ class Retrieve
     @queue = []
   end
 
- def retrieve_data(contents, column_name, criteria = nil)
-   column_name = clean_header(column_name)
+ def retrieve_data(contents, column_name, criteria)
+   column_name = format_header(column_name)
    parse_rows(contents, column_name, criteria)
    @queue
  end
 
  def parse_rows(contents, column_name, criteria)
-   contents.map do |column|
-     if criteria != nil
-       next if column[column_name].downcase != criteria.downcase
-     end
-       @queue << column[column_name]
+   contents.map do |row|
+       next if row[column_name].downcase != criteria.downcase
+       @queue << row.to_h
     end
  end
 
@@ -37,7 +35,7 @@ class Retrieve
   }
  end
 
- def clean_header(header)
+ def format_header(header)
      header_list[header.downcase]
  end
 

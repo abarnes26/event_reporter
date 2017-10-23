@@ -15,14 +15,14 @@ end
 
 def process_input
   input = get_user_input
-  until input == "exit"
+  until input == ["exit"]
    case input[0]
     when "load"
       load_command(input[1])
     when "find"
-      find_command(input[1..-1])
+      find_command(input[1], input[2])
     when "queue"
-      queue_command(input[1..-1])
+      queue_command(input[1])
     when "help"
       help_command(input[1..-1])
     end
@@ -33,16 +33,17 @@ def process_input
    @loaded_file = CSV.open filename, headers: true
  end
 
- def find_command(column, criteria = nil)
+ def find_command(column, criteria)
    @retriever.retrieve_data(@loaded_file, column, criteria)
+   @retriever.queue
  end
 
  def queue_command(action)
      case action
       when "count"
        @retriever.queue_count
-     when "clear"
-       @retreiver.queue_clear
+      when "clear"
+       @retriever.queue_clear
      end
    end
 
