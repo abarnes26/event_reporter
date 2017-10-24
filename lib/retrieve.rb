@@ -10,6 +10,7 @@ class Retrieve
   end
 
  def retrieve_data(contents, column_name, criteria)
+   @queue.clear
    column_name = format_header(column_name)
    parse_rows(contents, column_name, criteria)
    @queue

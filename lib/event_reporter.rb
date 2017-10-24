@@ -40,15 +40,21 @@ def process_input
  end
 
  def queue_command(action)
+   action.
      case action
       when "count"
        puts @retriever.queue_count
       when "clear"
        @retriever.queue_clear
       when "print"
-       print_queue
+       print_command
      end
    end
+
+ def print_command(criteria = nil)
+   
+ end
+
 
  def print_queue
      format = space_formatting
@@ -70,7 +76,7 @@ def process_input
  end
 
  def sort_queue(attribute)
-   @retreiver.queue.sort_by { |row| row[attribute.to_s]}
+   @retriever.queue.sort_by { |row| row[attribute.to_s]}
  end
 
  def space_formatting
