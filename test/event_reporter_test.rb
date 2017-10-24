@@ -28,8 +28,9 @@ class EventReporterTest < Minitest::Test
   def test_the_find_command_works
     report = EventReporter.new
     report.load_command
+    results = report.find_command("first_name", "Allison")[0]["first_Name"]
 
-    assert_equal "Allison", report.find_command("first_name", "Allison")[0]["first_Name"]
+    assert_equal "Allison", results
   end
 
   def test_the_queue_command_works

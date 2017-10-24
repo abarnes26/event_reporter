@@ -13,16 +13,13 @@ class Retrieve_test < Minitest::Test
     assert_equal "City", results
   end
 
-  # def test_it_can_parse_rows
-  #   find = Retrieve.new
-  #   contents = CSV.open "full_event_attendees.csv", headers: true
-  # end
-
   def test_it_can_find_registration_dates_with_messy_header
     find = Retrieve.new
     contents = CSV.open "full_event_attendees.csv", headers: true
+    find.retrieve_data(contents, "reGdate", "11/12/08 10:47")
 
-    assert_equal "11/12/08 10:47", find.retrieve_data(contents, "reGdate", "11/12/08 10:47")[0]["RegDate"]
+
+    assert_equal "11/12/08 10:47", find.queue[0]["RegDate"]
   end
 
   def test_it_can_clean_zip_codes
@@ -44,8 +41,9 @@ class Retrieve_test < Minitest::Test
   def test_it_can_find_first_names
     find = Retrieve.new
     contents = CSV.open "full_event_attendees.csv", headers: true
+    find.retrieve_data(contents, "first_name", "Allison")
 
-    assert_equal "Allison", find.retrieve_data(contents, "first_name", "Allison")[0]["first_Name"]
+    assert_equal "Allison", find.queue[0]["first_Name"]
  end
 
  def test_it_can_find_specific_names

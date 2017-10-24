@@ -20,7 +20,7 @@ def process_input
     when "load"
       load_command(input[1])
     when "find"
-      find_command(input[1], input[2])
+      find_command(input[1], input[2].strip)
     when "queue"
       queue_command(input[1])
     when "help"
