@@ -9,16 +9,17 @@ class EventReporter
     @retriever = Retrieve.new
   end
 
-  def get_user_input
+  def get_input
     gets.chomp.split(" ")
   end
 
   def process_input
+    puts "Welcome to Event Reporter!"
     puts "What would you like to do? (try 'help' for a list of commands)"
-    input = get_user_input
-    until input == ["exit"]
-      case input
-      when ["load"]
+    loop do
+    input = get_input
+      case input[0]
+        when "load"
          load_command(input[1])
         when "find"
          find_command(input[1], input[2].strip)
@@ -26,33 +27,46 @@ class EventReporter
          queue_command(input[1..-1])
         when "help"
          help_command(input[1..-1])
+        when "exit"
+         break
       end
     end
   end
 
   def load_command(file = nil)
     if file == nil
-    @retriever.load_file
+      puts "You've just loaded 'full_event_attendees.csv'."
+      @retriever.load_file
     else
+      puts "You've just loaded #{file}."
       @retriever.load_file(file)
     end
   end
 
   def find_command(column, criteria)
     @retriever.retrieve_data(column, criteria)
+    puts "The results for #{criteria} under #{column} have been added to the queue"
     @retriever.queue
   end
 
   def queue_command(action)
-  #  action
+    if action.length == 1
     case action
-      when "count"
-        p "Your queue has #{@retriever.queue_count} attendees in it!"
-       return @retriever.queue_count
-      when "clear"
+      when ["count"]
+       puts "Your queue has #{@retriever.queue_count} attendees in it!"
+       when ["clear"]
+       puts "Your queue is now empty."
        @retriever.queue_clear
-      when "print"
-       print_command
+       when ["print"]
+       print_queue
+      end
+    else
+      case action
+      when ["print", "by"]
+        print_sorted_queue(action[2])
+      when ["save", "to"]
+        save_queue_to_file(action(2))
+      end
     end
   end
 
@@ -86,10 +100,8 @@ class EventReporter
   def save_queue_to_file(filename)
     CSV.open(filename, "w") do |file|
       format = space_formatting
-      file << format % header_formatting
-      @retriever.queue.each do |criteria|
-        next if criteria == nil
-        file << format % data_formatting(criteria)
+      @retriever.queue.each do |row|
+        file << row
       end
     end
   end
@@ -116,30 +128,3 @@ class EventReporter
   end
 
 end
-
-# def user_interaction
-# while inputs = Readline.readline("@> ", true)
-#   input = inputs.split(" ")
-#   case input
-#   when
-#     load
-#   when
-#     @retreiver.retrieve_data(@loaded_file, input[1], input[2])
-#   when "queue" && input[1] == "count"
-#     puts @retreiver.queue_count
-#   when "exit"
-#     break
-#   end
-#  end
-# end
-
-# def save_queue_to_file(filename)
-#   CSV.open(filename, "w") do |file|
-#     format = space_formatting
-#     file << format % header_formatting
-#       @retriever.queue.each do |criteria|
-#       next if criteria == nil
-#       file.push(format % data_formatting(criteria))
-#     end
-#   end
-# end

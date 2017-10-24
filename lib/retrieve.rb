@@ -11,6 +11,7 @@ class Retrieve
   end
 
   def load_file(filename = "full_event_attendees.csv")
+    @file_contents.clear
     loaded_file = CSV.open filename, headers: true
     loaded_file.map do |row|
       row["Zipcode"] = clean_zipcodes(row["Zipcode"])

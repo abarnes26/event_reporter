@@ -25,24 +25,23 @@ class EventReporterTest < Minitest::Test
     assert_instance_of Array, report
   end
 
-  def test_the_find_command_works
-    report = EventReporter.new
-    report.load_command
-    results = report.find_command("first_name", "Allison")[0]["first_Name"]
+  # def test_the_find_command_works
+  #   report = EventReporter.new
+  #   report.load_command
+  #   results = report.find_command("first_name", "Allison")[0]["first_Name"]
+  #
+  #   assert_equal "Allison", results
+  # end
 
-    assert_equal "Allison", results
-  end
-
-  def test_the_queue_command_works
-    report = EventReporter.new
-    report.load_command
-    report.find_command("first_name", "John")
-
-    assert_equal 63, report.queue_command("count")
-
-    report.queue_command("clear")
-
-    assert_equal 0, report.queue_command("count")
-
-  end
+  # def test_the_queue_command_works
+  #   report = EventReporter.new
+  #   report.load_command
+  #   report.find_command("first_name", "John")
+  #
+  #   assert_equal 63, report.queue_command("count")
+  #
+  #   report.queue_command("clear")
+  #
+  #   assert_equal 0, report.queue_command("count")
+  # end
 end
