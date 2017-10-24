@@ -1,11 +1,6 @@
 
 module Clean
 
-  def clean_data(data)
-    clean_zipcodes("Zipcode")
-    clean_phone_numbers("HomePhone")
-  end
-
   def clean_zipcodes(zipcode)
     zipcode.to_s.rjust(5,"0")[0..4]
   end
@@ -17,6 +12,5 @@ module Clean
   def remove_phone_formatting(phone_number)
     phone_number.delete "(" ")" "-" "." " "
   end
-
 
 end

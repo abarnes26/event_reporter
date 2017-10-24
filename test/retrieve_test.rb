@@ -25,6 +25,22 @@ class Retrieve_test < Minitest::Test
     assert_equal "11/12/08 10:47", find.retrieve_data(contents, "reGdate", "11/12/08 10:47")[0]["RegDate"]
   end
 
+  def test_it_can_clean_zip_codes
+    find = Retrieve.new
+    contents = CSV.open "full_event_attendees.csv", headers: true
+    find.retrieve_data(contents, "first_name", "Colin")
+
+    assert_equal "02703", find.queue[0]["Zipcode"]
+  end
+
+  def test_it_can_clean_phone_numbers
+    find = Retrieve.new
+    contents = CSV.open "full_event_attendees.csv", headers: true
+    find.retrieve_data(contents, "first_name", "Audrey")
+
+    assert_equal "5309193000", find.queue[0]["HomePhone"]
+  end
+
   def test_it_can_find_first_names
     find = Retrieve.new
     contents = CSV.open "full_event_attendees.csv", headers: true

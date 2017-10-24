@@ -1,6 +1,7 @@
 require './lib/clean'
 
 class Retrieve
+  include Clean
 
   attr_reader :queue
 
@@ -17,6 +18,8 @@ class Retrieve
  def parse_rows(contents, column_name, criteria)
    contents.map do |row|
        next if row[column_name].downcase != criteria.downcase
+       row["Zipcode"] = clean_zipcodes(row["Zipcode"])
+       row["HomePhone"] = clean_phone_numbers(row["HomePhone"])
        @queue << row.to_h
     end
  end
