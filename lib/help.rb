@@ -46,8 +46,21 @@ module Help
       current queue to a file of your choosing.
 
       WARNING: Exporting will overwrite the current contents of any existing file."
-
     end
+  end
+
+  def help_details_find
+    puts "Use the 'find <attribute> <criteria>' to retrieve data from the
+    currently loaded file and move it into your queue.
+
+    Here are a few examples to get you started -
+
+    'find zipcode 20011'
+    'find first_name Audrey'
+    'find state NC'
+
+    NOTE: Your queue will be cleared at the beginning of each new search."
+  end
 
 
 
