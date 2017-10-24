@@ -14,6 +14,7 @@ def get_user_input
 end
 
 def process_input
+  puts "What would you like to do? (try 'Help' for a list of commands)"
   input = get_user_input
   until input == ["exit"]
    case input[0]
@@ -41,11 +42,57 @@ def process_input
  def queue_command(action)
      case action
       when "count"
-       @retriever.queue_count
+       puts @retriever.queue_count
       when "clear"
        @retriever.queue_clear
+      when "print"
+       print_queue
      end
    end
+
+ def print_queue
+     format = space_formatting
+     puts format % header_formatting
+     @retriever.queue.each do |criteria|
+       next if criteria == nil
+       puts format % data_formatting(criteria)
+     end
+ end
+
+ def print_sorted_queue(attribute)
+     format = space_formatting
+     puts format % header_formatting
+     sorted_queue = sort_queue(attribute)
+     sorted_queue.each do |criteria|
+        next if criteria == nil
+        puts format % data_formatting(criteria)
+     end
+ end
+
+ def sort_queue(attribute)
+   @retreiver.queue.sort_by { |row| row[attribute.to_s]}
+ end
+
+ def space_formatting
+   '%-13s %-13s %-45s %-7s %-25s %10s %-35s %-13s'
+ end
+
+ def header_formatting
+   ['LAST NAME', 'FIRST NAME', 'EMAIL','ZIPCODE',
+   'CITY', 'STATE', 'ADDRESS', 'PHONE']
+ end
+
+ def data_formatting(criteria)
+   [criteria["last_Name"], criteria["first_Name"],
+    criteria["Email_Address"], criteria["Zipcode"],
+    criteria["City"], criteria["State"],
+    criteria["Street"], criteria["HomePhone"]]
+ end
+
+ def help_command
+
+ end
+
 
 
 # def user_interaction

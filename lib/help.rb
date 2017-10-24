@@ -1,4 +1,6 @@
 
-class Help
+module Help
+
+  def help
 
 end
