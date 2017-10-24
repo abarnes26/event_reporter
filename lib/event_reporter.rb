@@ -9,15 +9,16 @@ class EventReporter
     @retriever = Retrieve.new
   end
 
-  def input
+  def get_user_input
     gets.chomp.split(" ")
   end
 
   def process_input
-    puts "What would you like to do? (try 'Help' for a list of commands)"
+    puts "What would you like to do? (try 'help' for a list of commands)"
+    input = get_user_input
     until input == ["exit"]
-      case input[0]
-        when "load"
+      case input
+      when ["load"]
          load_command(input[1])
         when "find"
          find_command(input[1], input[2].strip)
@@ -29,12 +30,16 @@ class EventReporter
     end
   end
 
-  def load_command(filename = "full_event_attendees.csv")
-    @loaded_file = CSV.open filename, headers: true
+  def load_command(file = nil)
+    if file == nil
+    @retriever.load_file
+    else
+      @retriever.load_file(file)
+    end
   end
 
   def find_command(column, criteria)
-    @retriever.retrieve_data(@loaded_file, column, criteria)
+    @retriever.retrieve_data(column, criteria)
     @retriever.queue
   end
 
@@ -42,6 +47,7 @@ class EventReporter
   #  action
     case action
       when "count"
+        p "Your queue has #{@retriever.queue_count} attendees in it!"
        return @retriever.queue_count
       when "clear"
        @retriever.queue_clear

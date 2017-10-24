@@ -15,8 +15,8 @@ class Retrieve_test < Minitest::Test
 
   def test_it_can_find_registration_dates_with_messy_header
     find = Retrieve.new
-    contents = CSV.open "full_event_attendees.csv", headers: true
-    find.retrieve_data(contents, "reGdate", "11/12/08 10:47")
+    find.load_file
+    find.retrieve_data("reGdate", "11/12/08 10:47")
 
 
     assert_equal "11/12/08 10:47", find.queue[0]["RegDate"]
@@ -24,46 +24,46 @@ class Retrieve_test < Minitest::Test
 
   def test_it_can_clean_zip_codes
     find = Retrieve.new
-    contents = CSV.open "full_event_attendees.csv", headers: true
-    find.retrieve_data(contents, "first_name", "Colin")
+    find.load_file
+    find.retrieve_data("first_name", "Colin")
 
     assert_equal "02703", find.queue[0]["Zipcode"]
   end
 
   def test_it_can_clean_phone_numbers
     find = Retrieve.new
-    contents = CSV.open "full_event_attendees.csv", headers: true
-    find.retrieve_data(contents, "first_name", "Audrey")
+    find.load_file
+    find.retrieve_data("first_name", "Audrey")
 
     assert_equal "5309193000", find.queue[0]["HomePhone"]
   end
 
   def test_it_can_find_first_names
     find = Retrieve.new
-    contents = CSV.open "full_event_attendees.csv", headers: true
-    find.retrieve_data(contents, "first_name", "Allison")
+    find.load_file
+    find.retrieve_data("first_name", "Allison")
 
     assert_equal "Allison", find.queue[0]["first_Name"]
   end
 
   def test_it_can_find_specific_names
-    contents = CSV.open "full_event_attendees.csv", headers: true
-    results = Retrieve.new
-    results.retrieve_data(contents, "first_name", "John")
+    retrieve = Retrieve.new
+    retrieve.load_file
+    retrieve.retrieve_data("first_name", "John")
 
-    assert_equal 63, results.queue_count
+    assert_equal 63, retrieve.queue_count
   end
 
   def test_it_can_clear_the_queue
-    contents = CSV.open "full_event_attendees.csv", headers: true
-    results = Retrieve.new
-    results.retrieve_data(contents, "first_name", "john")
+    retrieve = Retrieve.new
+    retrieve.load_file
+    retrieve.retrieve_data("first_name", "john")
 
-    assert_equal 63, results.queue_count
+    assert_equal 63, retrieve.queue_count
 
-    results.queue_clear
+    retrieve.queue_clear
 
-    assert_equal 0, results.queue_count
+    assert_equal 0, retrieve.queue_count
   end
 
 end

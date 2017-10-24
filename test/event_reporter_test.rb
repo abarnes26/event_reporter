@@ -16,13 +16,13 @@ class EventReporterTest < Minitest::Test
   def test_it_can_load_files_by_default
     report = EventReporter.new.load_command
 
-    assert_instance_of CSV, report
+    assert_instance_of Array, report
   end
 
   def test_it_can_load_different_files
     report = EventReporter.new.load_command("sample.csv")
 
-    assert_instance_of CSV, report
+    assert_instance_of Array, report
   end
 
   def test_the_find_command_works
