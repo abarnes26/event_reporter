@@ -10,6 +10,8 @@ module Help
   #program isn't finding state DC
   #need to complete HTML export
   #program cannot find by states
+  #clean cities
+  #clean states
 
  def expanded_help_details(input)
     case input[1..-1]
