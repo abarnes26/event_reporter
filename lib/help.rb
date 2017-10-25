@@ -2,36 +2,27 @@
 module Help
 
   def help_directory
-     help_details
+    help_details
   end
-
-  #help queue print
-  #program isn't treating "Salt Lake City" as one arguement
-  #program isn't finding state DC
-  #need to complete HTML export
-  #program cannot find by states
-  #clean cities
-  #clean states
-  #clean streets
 
  def expanded_help_details(input)
     case input[1..-1]
-    when ["load"]
-      help_details_load
-    when ["queue"]
-      help_details_queue
-    when ["find"]
-      help_details_find
-    when ["queue", "clear"]
-      help_details_queue_clear
-    when ["queue", "count"]
-      help_details_queue_count
-    when ["queue", "print"]
-      help_details_queue_print
-    when ["queue", "print", "by"]
-      queue_details_print_by
-    when ["queue", "save", "to"]
-      queue_details_save_to
+      when ["load"]
+        help_details_load
+      when ["queue"]
+        help_details_queue
+      when ["find"]
+        help_details_find
+      when ["queue", "clear"]
+        help_details_queue_clear
+      when ["queue", "count"]
+        help_details_queue_count
+      when ["queue", "print"]
+        help_details_queue_print
+      when ["queue", "print", "by"]
+        help_details_queue_print_by
+      when ["queue", "save", "to"]
+        help_details_queue_save_to
     end
   end
 
@@ -39,7 +30,7 @@ module Help
 
   def help_details
     puts "Event Reporter is here to make sorting your data easy!
-     Use the following commands to get started -
+    Use the following commands to get started -
        'load <filename>'
        'queue <option>'
        'find <attribute> <criteria>'
@@ -60,33 +51,33 @@ module Help
   end
 
   def help_details_queue_count
-      puts "Use the 'queue count' function to find out how many entries
-      you've got in your current queue.
+    puts "Use the 'queue count' function to find out how many entries
+    you've got in your current queue.
 
-      NOTE: The queue will be emptied before each search query."
+    NOTE: The queue will be emptied before each search query."
   end
 
   def help_details_queue_clear
-      puts "Use the 'queue clear' function to empty your current queue."
+    puts "Use the 'queue clear' function to empty your current queue."
   end
 
   def help_details_queue_print
-      puts "Use the 'queue print' function to display all of your current
-      entries in the queue.
+    puts "Use the 'queue print' function to display all of your current
+    entries in the queue.
 
-      NOTE: The queue will only be populated with your most recent search."
+    NOTE: The queue will only be populated with your most recent search."
   end
 
-  def queue_details_print_by
-      puts "Use the 'queue print by <attribute>' function to print your
-      data to the screen sorted by the attribute of your choice."
+  def help_details_queue_print_by
+    puts "Use the 'queue print by <attribute>' function to print your
+    data to the screen sorted by the attribute of your choice."
   end
 
-  def queue_details_save_to
-      puts "Use the 'queue save to <filename.csv>' function to export your
-      current queue to a file of your choosing.
+  def help_details_queue_save_to
+    puts "Use the 'queue save to <filename.csv>' function to export your
+    current queue to a file of your choosing.
 
-      WARNING: Exporting will overwrite the current contents of any existing file."
+    WARNING: Exporting will overwrite the current contents of any existing file."
   end
 
   def help_details_find

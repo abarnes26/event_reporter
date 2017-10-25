@@ -8,9 +8,9 @@ require 'simplecov'
 class EventReporterTest < Minitest::Test
 
   def test_it_instantiates
-   report = EventReporter.new
+    report = EventReporter.new
 
-   assert_instance_of EventReporter, report
+    assert_instance_of EventReporter, report
   end
 
   def test_it_can_load_files_by_default

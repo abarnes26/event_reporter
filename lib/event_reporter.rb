@@ -4,6 +4,9 @@ require 'readline'
 require 'pry'
 require './lib/help'
 
+#must export HTML
+#must add return statement for nil entries
+
 class EventReporter
   include Help
 
@@ -22,15 +25,15 @@ class EventReporter
       input = get_input
       case input[0]
         when "load"
-         load_command(input[1])
+          load_command(input[1])
         when "find"
-         find_command(input[1], input[2..-1].join(" "))
+          find_command(input[1], input[2..-1].join(" "))
         when "queue"
-         queue_command(input[1..-1])
+          queue_command(input[1..-1])
         when "help"
-         help_command(input[0..-1])
+          help_command(input[0..-1])
         when "exit"
-         break
+          break
       end
     end
   end
@@ -53,35 +56,31 @@ class EventReporter
 
   def queue_command(action)
     if action.length == 1
-    case action
-      when ["count"]
-       puts "Your queue has #{@retriever.queue_count} attendees in it!"
-       when ["clear"]
-       puts "Your queue is now empty."
-       @retriever.queue_clear
-       when ["print"]
-       print_queue
+      case action
+        when ["count"]
+          puts "Your queue has #{@retriever.queue_count} attendees in it!"
+        when ["clear"]
+          puts "Your queue is now empty."
+          @retriever.queue_clear
+        when ["print"]
+          print_queue
       end
     else
       case action[0..1]
-      when ["print", "by"]
-        print_sorted_queue(action[2])
-      when ["save", "to"]
-        save_queue_to_file(action[2])
+        when ["print", "by"]
+          print_sorted_queue(action[2])
+        when ["save", "to"]
+          save_queue_to_file(action[2])
       end
     end
   end
 
   def help_command(input)
     if input.length == 1
-     help_directory
+      help_directory
     else
-     expanded_help_details(input)
+      expanded_help_details(input)
     end
-  end
-
-  def print_command(criteria = nil)
-
   end
 
   def print_queue
@@ -94,13 +93,13 @@ class EventReporter
   end
 
   def print_sorted_queue(attribute)
-     format = space_formatting
-     puts format % header_formatting
-     sorted_queue = sort_queue(attribute)
-     sorted_queue.each do |criteria|
-        next if criteria == nil
-        puts format % data_formatting(criteria)
-     end
+    format = space_formatting
+    puts format % header_formatting
+    sorted_queue = sort_queue(attribute)
+    sorted_queue.each do |criteria|
+      next if criteria == nil
+      puts format % data_formatting(criteria)
+    end
   end
 
   def save_queue_to_file(filename)
