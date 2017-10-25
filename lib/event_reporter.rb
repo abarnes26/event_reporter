@@ -6,6 +6,9 @@ require './lib/help'
 
 #must export HTML
 #must add return statement for nil entries
+#must complete save to function
+#must build all tests
+#must run simplecov
 
 class EventReporter
   include Help
@@ -103,10 +106,10 @@ class EventReporter
   end
 
   def save_queue_to_file(filename)
-    CSV.open(filename, "w") do |file|
-      format = space_formatting
+    CSV.open(filename, "wb") do |file|
+      file << csv_header_formatting
       @retriever.queue.each do |row|
-        file << row
+        file << row.values
       end
     end
   end
@@ -130,6 +133,12 @@ class EventReporter
     criteria["Email_Address"], criteria["Zipcode"],
     criteria["City"], criteria["State"],
     criteria["Street"], criteria["HomePhone"]]
+  end
+
+  def csv_header_formatting
+    [" ","RegDate","first_Name","last_Name",
+    "Email_Address","HomePhone","Street",
+    "City","State","Zipcode"]
   end
 
 end
