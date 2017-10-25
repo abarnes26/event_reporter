@@ -1,8 +1,4 @@
-require 'minitest'
-require 'minitest/autorun'
-require 'minitest/pride'
-require './lib/clean'
-require 'pry'
+require_relative 'test_helper'
 
 class Clean_test < Minitest::Test
   include Clean

@@ -1,9 +1,4 @@
-require 'minitest'
-require 'minitest/autorun'
-require 'minitest/pride'
-require './lib/retrieve'
-require 'csv'
-require 'pry'
+require_relative 'test_helper'
 
 class Retrieve_test < Minitest::Test
 

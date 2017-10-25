@@ -1,9 +1,4 @@
-require 'minitest'
-require 'minitest/autorun'
-require 'minitest/pride'
-require './lib/event_reporter'
-require 'pry'
-require 'simplecov'
+require_relative 'test_helper'
 
 class EventReporterTest < Minitest::Test
 
@@ -16,14 +11,14 @@ class EventReporterTest < Minitest::Test
   def test_it_can_load_files_by_default
     report = EventReporter.new.load_command
 
-    assert_instance_of Array, report
+    assert_output "You've just loaded 'full_event_attendees.csv'.", report
   end
 
-  def test_it_can_load_different_files
-    report = EventReporter.new.load_command("sample.csv")
-
-    assert_instance_of Array, report
-  end
+  # def test_it_can_load_different_files
+  #   report = EventReporter.new.load_command("sample.csv")
+  #
+  #   assert_instance_of Array, report
+  # end
 
   # def test_the_find_command_works
   #   report = EventReporter.new

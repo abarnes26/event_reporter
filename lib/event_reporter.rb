@@ -5,8 +5,6 @@ require 'pry'
 require './lib/help'
 
 #must export HTML
-#must add return statement for nil entries
-#must complete save to function
 #must build all tests
 #must run simplecov
 
@@ -35,8 +33,10 @@ class EventReporter
           queue_command(input[1..-1])
         when "help"
           help_command(input[0..-1])
-        when "exit"
+        when "quit"
           break
+        else
+          error_message
       end
     end
   end
@@ -54,7 +54,6 @@ class EventReporter
   def find_command(column, criteria)
     @retriever.retrieve_data(column, criteria.to_s)
     puts "The results for #{criteria} under #{column} have been added to the queue"
-    @retriever.queue
   end
 
   def queue_command(action)
@@ -67,6 +66,8 @@ class EventReporter
           @retriever.queue_clear
         when ["print"]
           print_queue
+        else
+          error_message
       end
     else
       case action[0..1]
@@ -74,6 +75,8 @@ class EventReporter
           print_sorted_queue(action[2])
         when ["save", "to"]
           save_queue_to_file(action[2])
+        else
+          error_message
       end
     end
   end

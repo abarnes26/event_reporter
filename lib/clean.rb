@@ -18,12 +18,19 @@ module Clean
   end
 
   def clean_states(row)
-    if row["State"] == nil; row["City"] = "XX" end
+    if row["State"] == nil; row["State"] = "XX" end
   end
 
   def clean_streets(row)
     if row["Street"] == nil; row["Street"] = "XXXXX" end
+  end
 
+  def clean_all(row)
+    row["Zipcode"] = clean_zipcodes(row["Zipcode"])
+    row["HomePhone"] = clean_phone_numbers(row["HomePhone"])
+    clean_streets(row)
+    clean_cities(row)
+    clean_states(row)
   end
 
 end

@@ -23,6 +23,8 @@ module Help
         help_details_queue_print_by
       when ["queue", "save", "to"]
         help_details_queue_save_to
+      else
+        error_message
     end
   end
 
@@ -91,6 +93,12 @@ module Help
     'find state NC'
 
     NOTE: Your queue will be cleared at the beginning of each new search."
+  end
+
+  def error_message
+    puts "I'm sorry, I didn't understand your request. Please try again.
+
+    Type 'help' if you need assistance with commands."
   end
 
 end
