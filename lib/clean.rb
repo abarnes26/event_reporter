@@ -13,4 +13,17 @@ module Clean
     phone_number.delete "(" ")" "-" "." " "
   end
 
+  def clean_cities(row)
+    if row["City"] == nil; row["City"] = "XXXX" end
+  end
+
+  def clean_states(row)
+    if row["State"] == nil; row["City"] = "XX" end
+  end
+
+  def clean_streets(row)
+    if row["Street"] == nil; row["Street"] = "XXXXX" end
+
+  end
+
 end

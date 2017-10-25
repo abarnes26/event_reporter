@@ -16,6 +16,9 @@ class Retrieve
     loaded_file.map do |row|
       row["Zipcode"] = clean_zipcodes(row["Zipcode"])
       row["HomePhone"] = clean_phone_numbers(row["HomePhone"])
+      if row["Street"] == nil; row["Street"] = "XXXXX" end
+      if row["City"] == nil; row["City"] = "XXXX" end
+      if row["State"] == nil; row["State"] = "XX" end
       @file_contents << row
     end
   end

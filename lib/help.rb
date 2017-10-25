@@ -12,6 +12,7 @@ module Help
   #program cannot find by states
   #clean cities
   #clean states
+  #clean streets
 
  def expanded_help_details(input)
     case input[1..-1]
@@ -22,9 +23,11 @@ module Help
     when ["find"]
       help_details_find
     when ["queue", "clear"]
-      queue_details_clear
+      help_details_queue_clear
     when ["queue", "count"]
       help_details_queue_count
+    when ["queue", "print"]
+      help_details_queue_print
     when ["queue", "print", "by"]
       queue_details_print_by
     when ["queue", "save", "to"]
@@ -63,11 +66,11 @@ module Help
       NOTE: The queue will be emptied before each search query."
   end
 
-  def queue_details_clear
+  def help_details_queue_clear
       puts "Use the 'queue clear' function to empty your current queue."
   end
 
-  def queue_details_print
+  def help_details_queue_print
       puts "Use the 'queue print' function to display all of your current
       entries in the queue.
 
