@@ -2,8 +2,10 @@ require 'csv'
 require './lib/retrieve'
 require 'readline'
 require 'pry'
+require './lib/help'
 
 class EventReporter
+  include Help
 
   def initialize
     @retriever = Retrieve.new
@@ -17,16 +19,16 @@ class EventReporter
     puts "Welcome to Event Reporter!"
     puts "What would you like to do? (try 'help' for a list of commands)"
     loop do
-    input = get_input
+      input = get_input
       case input[0]
         when "load"
          load_command(input[1])
         when "find"
-         find_command(input[1], input[2].strip)
+         find_command(input[1], input[2..-1].join(" "))
         when "queue"
          queue_command(input[1..-1])
         when "help"
-         help_command(input[1..-1])
+         help_command(input[0..-1])
         when "exit"
          break
       end
@@ -44,7 +46,7 @@ class EventReporter
   end
 
   def find_command(column, criteria)
-    @retriever.retrieve_data(column, criteria)
+    @retriever.retrieve_data(column, criteria.to_s)
     puts "The results for #{criteria} under #{column} have been added to the queue"
     @retriever.queue
   end
@@ -61,17 +63,21 @@ class EventReporter
        print_queue
       end
     else
-      case action
+      case action[0..1]
       when ["print", "by"]
         print_sorted_queue(action[2])
       when ["save", "to"]
-        save_queue_to_file(action(2))
+        save_queue_to_file(action[2])
       end
     end
   end
 
-  def help_command
-
+  def help_command(input)
+    if input.length == 1
+     help_directory
+    else
+     expanded_help_details(input)
+    end
   end
 
   def print_command(criteria = nil)
