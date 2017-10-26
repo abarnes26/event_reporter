@@ -9,23 +9,20 @@ class EventReporterTest < Minitest::Test
   end
 
   def test_it_can_load_files_by_default
-    report = EventReporter.new.load_command
-
-    assert_output "You've just loaded 'full_event_attendees.csv'.", report
+    assert_output "You've just loaded full_event_attendees.csv.\n" do EventReporter.new.load_command end
   end
 
-  # def test_it_can_load_different_files
-  #   report = EventReporter.new.load_command("sample.csv")
-  #
-  #   assert_instance_of Array, report
-  # end
+  def test_it_can_load_different_files
+    assert_output "You've just loaded sample.csv.\n" do EventReporter.new.load_command("sample.csv") end
+  end
 
   # def test_the_find_command_works
   #   report = EventReporter.new
-  #   report.load_command
-  #   results = report.find_command("first_name", "Allison")[0]["first_Name"]
   #
-  #   assert_equal "Allison", results
+  #   assert_output
+  #   "You've just loaded full_event_attendees.csv.
+  #   The results for Allison under first_name have been added to the queue\n"
+  #   do report.load_command report.find_command("first_name", "Allison") end
   # end
 
   # def test_the_queue_command_works

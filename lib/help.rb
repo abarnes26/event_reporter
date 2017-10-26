@@ -5,7 +5,7 @@ module Help
     help_details
   end
 
- def expanded_help_details(input)
+  def expanded_help_details(input)
     case input[1..-1]
       when ["load"]
         help_details_load

@@ -1,12 +1,10 @@
-require 'csv'
 require './lib/retrieve'
-require 'readline'
-require 'pry'
 require './lib/help'
+require 'pry'
+require 'csv'
 
 #must export HTML
 #must build all tests
-#must run simplecov
 
 class EventReporter
   include Help
@@ -43,7 +41,7 @@ class EventReporter
 
   def load_command(file = nil)
     if file == nil
-      puts "You've just loaded 'full_event_attendees.csv'."
+      puts "You've just loaded full_event_attendees.csv."
       @retriever.load_file
     else
       puts "You've just loaded #{file}."
@@ -65,16 +63,18 @@ class EventReporter
           puts "Your queue is now empty."
           @retriever.queue_clear
         when ["print"]
-          print_queue
+          print_queue(@retriever.queue)
         else
           error_message
       end
     else
       case action[0..1]
         when ["print", "by"]
-          print_sorted_queue(action[2])
+          print_queue(sort_queue(action[2]))
         when ["save", "to"]
           save_queue_to_file(action[2])
+        when ["export", "html"]
+          export_to_hmtl
         else
           error_message
       end
@@ -89,21 +89,10 @@ class EventReporter
     end
   end
 
-  def print_queue
+  def print_queue(queue)
     format = space_formatting
     puts format % header_formatting
-    @retriever.queue.each do |criteria|
-      next if criteria == nil
-      puts format % data_formatting(criteria)
-    end
-  end
-
-  def print_sorted_queue(attribute)
-    format = space_formatting
-    puts format % header_formatting
-    sorted_queue = sort_queue(attribute)
-    sorted_queue.each do |criteria|
-      next if criteria == nil
+    queue.each do |criteria|
       puts format % data_formatting(criteria)
     end
   end
@@ -116,6 +105,17 @@ class EventReporter
       end
     end
   end
+
+  def export_to_hmtl
+    export_data = @retriever.queue
+    html = EventReporter::XmlMarkup.new(:indent => 5)
+    html.table {
+    html.tr { export_data[0].keys.each { |key| html.th(key)}}
+    export_data.each { |row| html.tr { row.values.each { |value| html.td(value)}}}
+    }
+    puts "#{html}"
+  end
+
 
   def sort_queue(attribute)
     attribute = @retriever.format_header(attribute)
