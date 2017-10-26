@@ -1,0 +1,20 @@
+<html>
+<head>
+  <meta charset='utf-8'>
+  <title>Thank You!</title>
+</head>
+<body>
+  <h1>Thanks <%= name %></h1>
+  <p>Thanks for coming to our conference.  We couldn't have done it without you!</p>
+
+  <table>
+  <tr><th>Name</th><th>Website</th></tr>
+    <% queue.each do |row| %>
+      <tr>
+        <td><%= "#{legislator.first_name} #{legislator.last_name}" %></td>
+        <td><%= "#{legislator.website}" %></td>
+      </tr>
+    <% end %>
+  </table>
+</body>
+</html>
